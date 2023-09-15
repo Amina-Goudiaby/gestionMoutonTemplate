@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
+    
+    public function eleveur(){
+        return $this->belongsTo(Eleveur::class);
+    }
 }
