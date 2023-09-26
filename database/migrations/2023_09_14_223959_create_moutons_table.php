@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::create('moutons', function (Blueprint $table) {
             $table->id();
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->string('nom');
             $table->string('genealogie');
             $table->string('race');
-            $table->string('age');
-            $table->string('description');
+            $table->integer('poids');
+            $table->integer('taille');
+            $table->date('dateNaissance');
             $table->integer('prix');
-            $table->foreignId('client_id')->nullable()->constrained('clients');
-            $table->foreignId('eleveur_id')->constrained('eleveurs')->onDelete('cascade');
+            $table->string('sexe');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            // $table->foreignId('client_id')->nullable()->constrained('clients');
+            // $table->foreignId('eleveur_id')->constrained('eleveurs')->onDelete('cascade');
             $table->timestamps();
         });
     }

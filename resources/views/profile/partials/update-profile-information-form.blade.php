@@ -18,6 +18,20 @@
         @method('patch')
 
         <div>
+            <x-input-label for="image" :value="__('Image')" />
+            <x-text-input id="image" name="image" type="file" class="mt-1 block w-full" :value="old('image', $user->image)" required autofocus autocomplete="image" />
+            <x-input-error class="mt-2" :messages="$errors->get('image')" />
+
+            @if ($user->image)
+            <div class="mt-4">
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Image actuelle :') }}</p>
+                <img src="{{ asset('storage/' . $user->image) }}" alt="{{ __('Image actuelle') }}" class="mt-2 max-w-md">
+            </div><br>
+            @endif
+
+        </div>
+
+        <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
@@ -45,6 +59,30 @@
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="adress" :value="__('Adress')" />
+            <x-text-input id="adress" name="adress" type="text" class="mt-1 block w-full" :value="old('adress', $user->adress)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('adress')" />
+        </div>
+
+        <div>
+            <x-input-label for="phoneNumber" :value="__('Phone Number')" />
+            <x-text-input id="phoneNumber" name="phoneNumber" type="number" class="mt-1 block w-full" :value="old('phoneNumber', $user->phoneNumber)" required autofocus autocomplete="phoneNumber" />
+            <x-input-error class="mt-2" :messages="$errors->get('phoneNumber')" />
+        </div>
+
+        <div>
+            <x-input-label for="typeProfil" :value="__('Type de Profil')" />
+            <x-text-input id="typeProfil" name="typeProfil" type="text" class="mt-1 block w-full" :value="old('typeProfil', $user->typeProfil)" readonly autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('typeProfil')" />
+        </div>
+
+        <div>
+            <x-input-label for="status" :value="__('Status profil')" />
+            <x-text-input id="status" name="status" type="text" class="mt-1 block w-full" :value="old('status', $user->status)" readonly autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('status')" />
         </div>
 
         <div class="flex items-center gap-4">
