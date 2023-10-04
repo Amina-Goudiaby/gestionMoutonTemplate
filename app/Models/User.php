@@ -48,15 +48,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
     
-    // public function client(){
-    //     return $this->belongsTo(Client::class);
-    // }
-    
-    // public function eleveur(){
-    //     return $this->belongsTo(Eleveur::class);
-    // }
-
-    public function mouton(){
-        return $this->hasMany(Mouton::class);
+    public function client(){
+        return $this->belongsTo(Client::class);
     }
+    
+    public function eleveur(){
+        return $this->belongsTo(Eleveur::class, 'eleveur_id');
+    }
+
+    // public function mouton(){
+    //     return $this->hasMany(Mouton::class);
+    // }
 }

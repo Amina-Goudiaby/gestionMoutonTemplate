@@ -7,12 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Eleveur extends Model
 {
-    // use HasFactory;
-    // public function user(){
-    //     return $this->hasOne(User::class);
-    // }
+    use HasFactory;
 
-    // public function mouton(){
-    //     return $this->hasMany(Mouton::class);
-    // }
+protected $table = 'eleveurs';
+
+    protected $fillable = [
+        'user_id',
+    ];
+
+    public function user(){
+        return $this->hasOne(User::class,'id', 'user_id');
+    }
+
+    public function moutons(){
+        return $this->hasMany(Mouton::class, 'mouton_id');
+    }
 }

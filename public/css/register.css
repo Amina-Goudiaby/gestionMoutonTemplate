@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 50%;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+}
+
+.logo a span {
+    color: #e74c3c; /* Couleur pour la lettre K */
+}
+
+.input{
+    display: flex;
+    gap: 120px;
+}
+
+.input1{
+    padding-bottom: 20px;
+}
+
+.input2, select{
+    width: 270px;
+}
+
+.input label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="file"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.input select {
+    padding: 8px;
+}
+
+.btn {
+    text-align: right;
+    padding-top: 20px;
+}
+
+.btn a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.btn a:hover {
+    text-decoration: underline;
+    color: #AD0D47;
+}
+
+.btn input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #AD0D47; /* Couleur de fond pour le bouton */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn input[type="submit"]:hover {
+    background-color: #c0392b; /* Couleur de fond au survol */
+}

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
+use App\Models\Eleveur;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -51,6 +53,19 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        $useId = $user->id;
+
+        if($request->typeProfil === 'client'){
+            $client = new Client();
+            $client->user_id = $useId;
+            $client->save();
+        }
+        elseif($request->typeProfil === 'eleveur'){
+            $eleveur = new Eleveur();
+            $eleveur->user_id = $useId;
+            $eleveur->save();
+        }
 
         Auth::login($user);
 

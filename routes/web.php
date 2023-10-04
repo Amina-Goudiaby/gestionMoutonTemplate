@@ -17,12 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('index');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'statusProfil'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,20 +38,21 @@ require __DIR__.'/auth.php';
 
 
 //Gestion User
-Route::get('listeUser', [UserController::class, 'index'])->name('user.liste');
-Route::get('listeUser/detailUser{id}', [UserController::class, 'show'])->name('user.detail');
-Route::get('listeUser/bloquerUser{id}', [UserController::class, 'bloquer'])->name('user.bloquer');
-Route::get('listeUser/debloquerUser{id}', [UserController::class, 'debloquer'])->name('user.debloquer');
+Route::get('listeUser', [UserController::class, 'index'])->name('user.liste')->middleware(['auth', 'adminRole']);
+Route::get('listeUser/detailUser{id}', [UserController::class, 'show'])->middleware(['auth', 'adminRole'])->name('user.detail');
+Route::get('listeUser/bloquerUser{id}', [UserController::class, 'bloquer'])->name('user.bloquer')->middleware(['auth', 'adminRole']);
+Route::get('listeUser/debloquerUser{id}', [UserController::class, 'debloquer'])->name('user.debloquer')->middleware(['auth', 'adminRole']);
 // Route::get('listeUser/edit{id}', [UserController::class, 'edit'])->name('user.edit');
 // Route::post('listeUser/updateUser{id}', [UserController::class, 'update'])->name('user.update');
-Route::get('listeUser/deleteUser{id}', [UserController::class, 'destroy'])->name('user.delete');
+Route::get('listeUser/deleteUser{id}', [UserController::class, 'destroy'])->name('user.delete')->middleware(['auth', 'adminRole']);
 
 
 //Gestion Moutons
-Route::get('listeMouton', [MoutonController::class, 'index'])->name('mouton.liste');
-Route::get('listeMouton/create', [MoutonController::class, 'create'])->name('mouton.create');
-Route::post('listeMouton/store', [MoutonController::class, 'store'])->name('mouton.store');
+Route::get('listeMouton', [MoutonController::class, 'index'])->name('mouton.liste')->middleware(['clientRole']);
+Route::get('listeMoutonParEleveur', [MoutonController::class, 'listeMoutonParEleveur'])->middleware(['auth', 'eleveurRole'])->name('mouton.listeMoutonParEleveur');
+Route::get('listeMouton/create', [MoutonController::class, 'create'])->name('mouton.create')->middleware(['auth', 'eleveurRole']);
+Route::post('listeMouton/store', [MoutonController::class, 'store'])->name('mouton.store')->middleware(['auth', 'eleveurRole']);
 Route::get('listeMouton/detail{id}', [MoutonController::class, 'show'])->name('mouton.detail');
-Route::get('listeMouton/delete{id}', [MoutonController::class, 'destroy'])->name('mouton.delete');
-Route::get('listeMouton/updateMouton{id}', [MoutonController::class, 'edit'])->name('mouton.edit');
-Route::put('listeMouton/updateMouton{id}', [MoutonController::class, 'update'])->name('mouton.update');
+Route::get('listeMouton/delete{id}', [MoutonController::class, 'destroy'])->name('mouton.delete')->middleware(['auth', 'eleveurRole']);
+Route::get('listeMouton/updateMouton{id}', [MoutonController::class, 'edit'])->name('mouton.edit')->middleware(['auth', 'eleveurRole']);
+Route::put('listeMouton/updateMouton{id}', [MoutonController::class, 'update'])->name('mouton.update')->middleware(['auth', 'eleveurRole']);

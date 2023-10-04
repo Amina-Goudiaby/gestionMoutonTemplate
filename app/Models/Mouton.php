@@ -7,29 +7,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mouton extends Model
 {
-    // use HasFactory;
-    // public function client(){
-    //     return $this->belongsTo(Client::class);
-    // }
-    
-    // public function eleveur(){
-    //     return $this->belongsTo(Eleveur::class);
-    // }
+    use HasFactory;
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    protected $table = 'moutons';
+    public function client(){
+        return $this->belongsTo(Client::class);
     }
+    
+    public function eleveur(){
+        return $this->belongsTo(Eleveur::class, 'eleveur_id');
+    }
+
+    // public function user(){
+    //     return $this->belongsTo(User::class);
+    // }
 
     protected $fillable = [
         'nom',
         'sexe',
         'age',
+        'poids',
+        'taille',
+        'dateNaissance',
         'image',
         'description',
         'genealogie',
         'race',
         'prix',
         'status',
-        'user_id',
+        'client_id',
+        'eleveur_id',
     ];
-}
+    // public function getImageAttribute($value)
+    // {
+    //     if ($value) {
+    //         return asset();
+    //     }
+    // }
+} 

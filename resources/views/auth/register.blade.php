@@ -1,84 +1,79 @@
-<x-guest-layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+</head>
+<body>
     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
-        <div class="mt-4">
-            <x-input-label for="image" :value="__('Image')" />
-            <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')" required/>
-            <x-input-error :messages="$errors->get('image')" class="mt-2" />
+        <div class="logo">
+            <div class="logo"><a href="{{ route('index') }}" class=""> <span>K</span>HAR<span>-</span>B<span>I</span></a></div>
         </div>
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        <div class="input">
+                <div class="input1">
+                <label for="image">Image</label><br>
+                <input type="file" id="image" name="image" required autofocus autocomplete="image" /><br><br>
+                @error('image')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+                
+                <label for="email">Email</label><br>
+                <input type="email" id="email" name="email" required autofocus autocomplete="email" /><br><br>
+                @error('email')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+                
+                <label for="password">Password</label><br>
+                <input type="password" id="password" name="password" required autofocus autocomplete="password" /><br><br>
+                @error('password')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+                
+                <label for="password_confirmation">Password confirmation</label><br>
+                <input type="password" id="password_confirmation" name="password_confirmation" required autofocus autocomplete="password_confirmation" /><br><br>
+                @error('password_confirmation')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
+            
+            <div class="input2">
+                <label for="name">User name</label><br>
+                <input type="text" id="name" name="name" required autofocus autocomplete="name" /><br><br>
+                @error('name')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+                
+                <label for="adress">adress</label><br>
+                <input type="text" id="adress" name="adress" required autofocus autocomplete="adress" /><br><br>
+                @error('adress')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+                
+                <label for="phoneNumber">phoneNumber</label><br>
+                <input type="number" id="phoneNumber" name="phoneNumber" required autofocus autocomplete="phoneNumber" /><br><br>
+                @error('phoneNumber')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+                
+                <label for="typeProfil">typeProfil</label><br>
+                <select id="typeProfil"  name="typeProfil">
+                    <option value="client">Client</option>
+                    <option value="eleveur">Eleveur</option>
+                    <option value="admin">Admin</option>
+                </select>
+                @error('typeProfil')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <!-- Address -->
-        <div class="mt-4">
-            <x-input-label for="adress" :value="__('Adress')" />
-            <x-text-input id="adress" class="block mt-1 w-full" type="text" name="adress" :value="old('adress')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('adress')" class="mt-2" />
-        </div>
-
-        
-        <!-- phoneNumber -->
-        <div class="mt-4">
-            <x-input-label for="phoneNumber" :value="__('Phone Number')" />
-            <x-text-input id="phoneNumber" class="block mt-1 w-full" type="number" name="phoneNumber" :value="old('phoneNumber')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('phoneNumber')" class="mt-2" />
-        </div>
-
-        
-        <!-- Type de profil -->
-        <div>
-            <x-input-label for="typeProfil" :value="__('Type of Profil')" />
-            <select id="typeProfil" class="block mt-1 w-full" name="typeProfil">
-                <option value="client">Client</option>
-                <option value="eleveur">Eleveur</option>
-                <option value="admin">Admin</option>
-            </select>
-            <x-input-error :messages="$errors->get('typeProfil')" class="mt-2" />
-        </div>
-
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('Register') }}
-            </x-primary-button>
+                <div class="btn">
+                    <a href="{{ route('login') }}">Se connecter</a>
+                    <input type="submit" value="Enregistrer">
+                </div>
+            </div>
         </div>
     </form>
-</x-guest-layout>
+</body>
+</html>

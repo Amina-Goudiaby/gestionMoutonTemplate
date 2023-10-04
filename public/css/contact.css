@@ -1,0 +1,79 @@
+body{
+    background-color: #333;
+}
+
+form{
+    width: 60%;
+    margin: auto;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-top: 20px;
+}
+
+.contact{   
+    display: flex;
+}
+.contact .contactColor{
+    background-color: #AD0D47;;
+    width: 40%;
+    color: white;
+}
+
+.contact .contactColor h2{
+    padding-top: 100px;
+    padding-left: 30px;
+}
+
+.contact .contactColor p{
+    padding: 30px;
+}
+
+.contact .contactColor .btn1{
+    padding: 10px;
+    background-color: #AD0D47;
+    border: solid white 1px;
+    color: white;
+    position: relative;
+    left: 180px;
+    top: 50px;
+    cursor: pointer;
+}
+
+.contact .contactColor .btn1:hover{
+    background-color: white;
+    color: black;
+    padding: 12px;
+}
+
+.contact .contactInput{
+    background-color: white;
+    width: 60%;
+    padding-left: 30px;
+    padding-bottom: 10px;
+}
+
+input, textarea{
+    width: 88%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type='submit']{
+    border: none;
+    width: 30%;
+    padding: 15px;
+    position: relative;
+    left: 290px;
+    cursor: pointer;
+    background-color: #AD0D47;
+    color: rgb(255, 255, 255);
+}
+
+input[type='submit']:hover{
+    color: rgb(0, 0, 0);
+    border: solid #AD0D47 1px;
+    background-color: #ffffff;  
+}
+

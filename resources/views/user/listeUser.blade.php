@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des utilisateurs 👤</title>
+    <link rel="stylesheet" href="{{ asset('css/liste.css') }}">
 </head>
 <body>
     <h2>Liste des utilisateurs 👤</h2>

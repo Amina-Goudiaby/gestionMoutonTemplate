@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    // use HasFactory;
-    // public function user(){
-    //     return $this->hasOne(User::class);
-    // }
+    use HasFactory;
     
-    // public function mouton(){
-    //     return $this->hasMany(Mouton::class);
-    // }
+    protected $fillable = [
+        'user_id',
+    ];
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
+    
+    public function mouton(){
+        return $this->hasMany(Mouton::class);
+    }
 }

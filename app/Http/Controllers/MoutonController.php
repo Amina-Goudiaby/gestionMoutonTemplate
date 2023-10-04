@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Eleveur;
 use App\Models\Mouton;
+use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MoutonController extends Controller
@@ -36,34 +40,40 @@ class MoutonController extends Controller
             'nom' => ['required', 'string', 'max:255'],
             'genealogie' => ['required', 'string', 'max:255'],
             'race' => ['required', 'string', 'max:255'],
-            'age' => ['required', 'integer'],
-            'poids' => ['required', 'integer'],
-            'taille' => ['required', 'integer'],
-            'dateNaissance' => ['required', 'integer'],
+            'poids' => ['required', 'numeric'],
+            'taille' => ['required', 'numeric'],
+            'dateNaissance' => ['required', 'date'],
             'prix' => ['required', 'integer'],
             'sexe' => ['required', 'string', 'max:255'],
         ]);
 
-        $user = Auth::user();
-        $user_id = $user->id;
-        $imagePath = $request->file('image')->store('images', 'public');
 
-        $mouton = new Mouton([
-            'nom' => $request->input('nom'),
-            'race' => $request->input('race'),
-            'genealogie' => $request->input('genealogie'),
-            'description' => $request->input('description'),
-            'age' => $request->input('age'),
-            'prix' => $request->input('prix'),
-            'sexe' => $request->input('sexe'),
-            'image' => $imagePath,
-            'user_id' => $user_id,
-        ]);
-        $request->merge(['user_id' => $user_id]);
+        $eleveur = Eleveur::where('user_id', Auth::user()->id)->first();
 
-        $mouton->save();
+        if($eleveur){
+            $eleveurId = $eleveur->id;
+            $imagePath = $request->file('image')->store('images', 'public');
 
-        return redirect()->route('mouton.liste')->with('success', 'Le mouton a été ajouté avec succès.');
+            $mouton = new Mouton([
+                'nom' => $request->input('nom'),
+                'race' => $request->input('race'),
+                'poids' => $request->input('poids'),
+                'taille' => $request->input('taille'),
+                'genealogie' => $request->input('genealogie'),
+                'dateNaissance' => $request->input('dateNaissance'),
+                'prix' => $request->input('prix'),
+                'sexe' => $request->input('sexe'),
+                'image' => $imagePath,
+                'eleveur_id' => $eleveurId,
+            ]);
+
+            $mouton->save();
+
+            return redirect()->route('mouton.listeMoutonParEleveur')->with('success', 'Le mouton a été ajouté avec succès.');
+        }
+        else{
+            return redirect()->route('mouton.liste')->with('erreur', 'Vous ne pouvez pas ajouter un mouton car vous n\'etes pas eleveur');
+        }
     }
 
     /**
@@ -71,8 +81,23 @@ class MoutonController extends Controller
      */
     public function show(string $id)
     {
-        $mouton = Mouton::find($id);
-        return view('mouton.detailMouton', compact('mouton'));
+        $user = Auth::user();
+        //dd($user->typeProfil);
+        $mouton = Mouton::with('eleveur.user')->find($id);
+        return view('mouton.detailMouton', compact('mouton','user'));
+    }
+
+    public function listeMoutonParEleveur(){
+        $userId = auth()->user()->id;
+        $eleveur = Eleveur::where('user_id', $userId)->first();
+        if($eleveur){
+            $eleveurId = $eleveur->id;
+            $moutons = Mouton::where('eleveur_id', $eleveurId)->get();
+            return view('mouton.listeMoutonParEleveur', compact('moutons'));
+        }
+        else{
+            return redirect()->route('mouton.liste')->with('erreur', 'Vous ne pouvez pas acceder cette page car vous n\'etes pas eleveur');
+        }
     }
 
     /**
@@ -97,14 +122,16 @@ class MoutonController extends Controller
             $mouton->image = $imagePath;
         }
         $mouton->nom = $request->input('nom');
-        $mouton->age = $request->input('age');
+        $mouton->dateNaissance = $request->input('dateNaissance');
         $mouton->sexe = $request->input('sexe');
-        $mouton->description = $request->input('description');
+        $mouton->poids = $request->input('poids');
+        $mouton->taille = $request->input('taille');
+        $mouton->prix = $request->input('prix');
         $mouton->race = $request->input('race');
         $mouton->genealogie = $request->input('genealogie');
 
         $mouton->save();
-        return redirect()->route('mouton.liste')->with('success', 'Le mouton a été modifier avec succès.');
+        return redirect()->route('mouton.listeMoutonParEleveur')->with('success', 'Le mouton a été modifier avec succès.');
     }
 
     /**

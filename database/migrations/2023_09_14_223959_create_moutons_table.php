@@ -22,9 +22,9 @@ return new class extends Migration
             $table->date('dateNaissance');
             $table->integer('prix');
             $table->string('sexe');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            // $table->foreignId('client_id')->nullable()->constrained('clients');
-            // $table->foreignId('eleveur_id')->constrained('eleveurs')->onDelete('cascade');
+            // $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('client_id')->nullable()->constrained('clients');
+            $table->foreignId('eleveur_id')->constrained('eleveurs')->onDelete('cascade');
             $table->timestamps();
         });
     }

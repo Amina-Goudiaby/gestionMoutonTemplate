@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -42,14 +43,17 @@ class UserController extends Controller
         return view('user.detailUser', compact('user'));
 
     }
-
+    // public function dash(){
+    //     $user = Auth::user();
+    //     return view('navigation', compact('user'));
+    // }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $user = User::find($id);
-        return view('user.updateUser', compact('user'));
+        // $user = User::find($id);
+        // return view('user.updateUser', compact('user'));
     }
 
     /**
